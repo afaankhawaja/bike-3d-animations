@@ -1,5 +1,11 @@
+import CanvasContainer from "./components/3d/CanvasContainer";
+
 const App = () => {
-  return <div>App</div>;
+  return (
+    <div>
+      <CanvasContainer />
+    </div>
+  );
 };
 
 export default App;
