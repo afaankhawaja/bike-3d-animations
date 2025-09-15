@@ -1,9 +1,9 @@
-import CanvasContainer from "./components/3d/CanvasContainer";
+import Model from "./components/3d/Model";
 
 const App = () => {
   return (
-    <div>
-      <CanvasContainer />
+    <div className="w-screen h-screen">
+      <Model />
     </div>
   );
 };
