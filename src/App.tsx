@@ -6,8 +6,12 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
-  const modelRef = useRef(null);
-  const parentRef = useRef(null);
+  const modelRef = useRef<HTMLDivElement>(null);
+  const parentRef = useRef<HTMLDivElement>(null);
+  const cameraRef = useRef<{ position: { x: number; y: number; z: number } }>({
+    position: { x: -3.448, y: 1.24, z: -0.378 },
+  });
+
   useEffect(() => {
     if (!modelRef.current || !parentRef.current) return;
 
@@ -38,6 +42,45 @@ const App = () => {
       ease: "none",
       duration: 1,
     });
+
+    // Camera animations
+
+    modelTimeline.to(
+      cameraRef.current.position,
+      {
+        x: -2.0,
+        y: 2.5,
+        z: 1.5,
+        ease: "none",
+        duration: 1,
+      },
+      0
+    );
+
+    modelTimeline.to(
+      cameraRef.current.position,
+      {
+        x: 2.5,
+        y: 1.8,
+        z: -2.0,
+        ease: "none",
+        duration: 1,
+      },
+      1
+    );
+
+    modelTimeline.to(
+      cameraRef.current.position,
+      {
+        x: 0.5,
+        y: 3.0,
+        z: 2.5,
+        ease: "none",
+        duration: 1,
+      },
+      2
+    );
+
     return () => {
       modelTimeline.revert();
     };
@@ -45,7 +88,7 @@ const App = () => {
   return (
     <div ref={parentRef} className="w-screen h-[1024px] relative">
       <div ref={modelRef} id="canvas-container" className="w-full h-full">
-        <Model />
+        <Model cameraRef={cameraRef} />
       </div>
       <div className="flex-col justify-between absolute inset-0 min-w-screen">
         <div className="max-w-[25%] relative top-10 left-5">
