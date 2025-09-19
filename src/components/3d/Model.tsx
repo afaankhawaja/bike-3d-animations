@@ -24,7 +24,7 @@ function CameraController({ cameraRef }: CameraControllerProps) {
 
 function Scene() {
   const gltf = useLoader(GLTFLoader, "/models/bicycle/scene.gltf");
-  return <primitive position={[0, 0.76, 0]} object={gltf.scene} />;
+  return <primitive position={[0, 0.8, 0.5]} object={gltf.scene} />;
 }
 
 interface ModelProps {
@@ -34,7 +34,7 @@ interface ModelProps {
 const Model = ({ cameraRef }: ModelProps) => {
   return (
     <Canvas
-      className="w-100vw h-100vh"
+      className="w-100vw h-100vh pb-16"
       camera={{ position: [-3.448, 1.24, -0.378], fov: 60 }}
     >
       <ambientLight intensity={1.8} />
