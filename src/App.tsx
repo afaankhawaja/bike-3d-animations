@@ -72,8 +72,8 @@ const App = () => {
     modelTimeline.to(
       cameraRef.current.position,
       {
-        x: 0.5,
-        y: 3.0,
+        x: 0.9  ,
+        y: 5.0,
         z: 2.5,
         ease: "none",
         duration: 1,
@@ -86,33 +86,38 @@ const App = () => {
     };
   }, []);
   return (
-    <div ref={parentRef} className="w-screen h-[1024px] relative">
+    <div
+      ref={parentRef}
+      className="max-w-screen overflow-hidden h-[1224px] relative bg-gradient-to-b from-[#A1D6E2] via-[#F1F1F2] to-[#A1D6E2]"
+    >
       <div ref={modelRef} id="canvas-container" className="w-full h-full">
         <Model cameraRef={cameraRef} />
       </div>
-      <div className="flex-col justify-between absolute inset-0 min-w-screen">
-        <div className="max-w-[25%] relative top-10 left-5">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+      <div className="absolute inset-0 flex flex-col justify-center space-y-32 px-6 md:px-16 text-[#1995AD]">
+        <div className="max-w-lg">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
             Ride with Power
           </h2>
-          <p className="text-lg leading-relaxed mb-4">
+          <p className="text-lg leading-relaxed opacity-90">
             Experience the thrill of the open road with our meticulously crafted
             bicycles. Designed for performance and built for adventure, every
             ride is a journey of discovery.
           </p>
         </div>
-        <div className="flex justify-end relative top-32 right-5">
-          <p className="text-lg leading-relaxed max-w-[25%]">
+
+        <div className="self-end max-w-lg text-right">
+          <p className="text-lg leading-relaxed opacity-90">
             From the urban jungle to scenic trails, our bikes are your perfect
             companion. Lightweight frames, responsive handling, and timeless
             design come together for an unparalleled riding experience.
           </p>
         </div>
-        <div className="max-w-[25%] relative top-60 left-5">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+
+        <div className="max-w-lg">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
             Engineered for Excellence
           </h2>
-          <p className="text-lg leading-relaxed mb-4">
+          <p className="text-lg leading-relaxed opacity-90">
             At the heart of our design is a commitment to quality. We use the
             finest materials and cutting-edge engineering to create bikes that
             are as durable as they are beautiful.
