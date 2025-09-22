@@ -1,5 +1,6 @@
 import { Canvas, useLoader, useFrame, useThree } from "@react-three/fiber";
-import { Suspense, type RefObject } from "react";
+import { Suspense, useEffect, useRef, type RefObject } from "react";
+import { Object3D } from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 interface CameraControllerProps {
@@ -24,6 +25,38 @@ function CameraController({ cameraRef }: CameraControllerProps) {
 
 function Scene() {
   const gltf = useLoader(GLTFLoader, "/models/bicycle/scene.gltf");
+  const wheelRef = useRef<Object3D>(null);
+  const innerWheel1Ref = useRef<Object3D>(null);
+  const innerWheel2Ref = useRef<Object3D>(null);
+
+  useEffect(() => {
+    if (gltf && gltf.scene) {
+      const wheel = gltf.scene.getObjectByName("1Circle140_M_Wheel_2_0");
+      const innerWheel1 = gltf.scene.getObjectByName("Cylinder046");
+      const innerWheel2 = gltf.scene.getObjectByName("Cylinder047");
+
+      if (wheel) {
+        wheelRef.current = wheel;
+      }
+      if (innerWheel1 && innerWheel2) {
+        innerWheel1Ref.current = innerWheel1;
+        innerWheel2Ref.current = innerWheel2;
+      }
+    }
+  }, [gltf]);
+
+  useFrame(() => {
+    if (wheelRef.current) {
+      wheelRef.current.rotation.z += 0.05;
+    }
+    if (innerWheel1Ref.current) {
+      innerWheel1Ref.current.rotation.x += 0.05;
+    }
+    if (innerWheel2Ref.current) {
+      innerWheel2Ref.current.rotation.x += 0.05;
+    }
+  });
+
   return <primitive position={[0, 0.8, 0.5]} object={gltf.scene} />;
 }
 
