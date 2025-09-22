@@ -2,7 +2,10 @@ import { Canvas, useLoader, useFrame, useThree } from "@react-three/fiber";
 import { Suspense, useEffect, useRef, type RefObject } from "react";
 import { Object3D } from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
 interface CameraControllerProps {
   cameraRef: RefObject<{ position: { x: number; y: number; z: number } }>;
 }
@@ -35,27 +38,47 @@ function Scene() {
       const innerWheel1 = gltf.scene.getObjectByName("Cylinder046");
       const innerWheel2 = gltf.scene.getObjectByName("Cylinder047");
 
-      if (wheel) {
-        wheelRef.current = wheel;
-      }
-      if (innerWheel1 && innerWheel2) {
-        innerWheel1Ref.current = innerWheel1;
-        innerWheel2Ref.current = innerWheel2;
-      }
+      if (wheel) wheelRef.current = wheel;
+      if (innerWheel1) innerWheel1Ref.current = innerWheel1;
+      if (innerWheel2) innerWheel2Ref.current = innerWheel2;
+    }
+
+    if (wheelRef.current) {
+      gsap.to(wheelRef.current.rotation, {
+        z: "+=" + Math.PI * 10,
+        scrollTrigger: {
+          trigger: "body",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: true,
+        },
+      });
+    }
+
+    if (innerWheel1Ref.current) {
+      gsap.to(innerWheel1Ref.current.rotation, {
+        x: "+=" + Math.PI * 10,
+        scrollTrigger: {
+          trigger: "body",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: true,
+        },
+      });
+    }
+
+    if (innerWheel2Ref.current) {
+      gsap.to(innerWheel2Ref.current.rotation, {
+        x: "+=" + Math.PI * 10,
+        scrollTrigger: {
+          trigger: "body",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: true,
+        },
+      });
     }
   }, [gltf]);
-
-  useFrame(() => {
-    if (wheelRef.current) {
-      wheelRef.current.rotation.z += 0.05;
-    }
-    if (innerWheel1Ref.current) {
-      innerWheel1Ref.current.rotation.x += 0.05;
-    }
-    if (innerWheel2Ref.current) {
-      innerWheel2Ref.current.rotation.x += 0.05;
-    }
-  });
 
   return <primitive position={[0, 0.8, 0.5]} object={gltf.scene} />;
 }
