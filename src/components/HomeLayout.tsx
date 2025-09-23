@@ -1,7 +1,7 @@
 const HomeLayout = () => {
   return (
-    <div className="absolute inset-0 flex flex-col justify-center space-y-32 px-6 md:px-16 text-[#1995AD]">
-      <div className="max-w-lg">
+    <div className="absolute inset-0 flex flex-col justify-center space-y-32 max-lg:mt-32 px-6 md:px-16 text-[#1995AD]">
+      <div className="max-w-lg max-lg:pt-32">
         <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
           Ride with Power
         </h2>
@@ -12,7 +12,7 @@ const HomeLayout = () => {
         </p>
       </div>
 
-      <div className="self-end max-w-lg text-right">
+      <div className="self-end max-w-lg text-right mt-10">
         <p className="text-lg leading-relaxed opacity-90">
           From the urban jungle to scenic trails, our bikes are your perfect
           companion. Lightweight frames, responsive handling, and timeless
@@ -20,11 +20,11 @@ const HomeLayout = () => {
         </p>
       </div>
 
-      <div className="max-w-lg">
+      <div className="max-w-lg max-lg:pb-32">
         <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
           Engineered for Excellence
         </h2>
-        <p className="text-lg leading-relaxed opacity-90">
+        <p className="text-lg leading-relaxed opacity-90 ml-auto max-md:max-w-[50%] max-lg:mt-40">
           At the heart of our design is a commitment to quality. We use the
           finest materials and cutting-edge engineering to create bikes that are
           as durable as they are beautiful.

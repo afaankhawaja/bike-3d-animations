@@ -100,7 +100,7 @@ const Model = ({ cameraRef }: ModelProps) => {
     <Canvas
       className="w-100vw h-100vh pb-16"
       camera={{
-        position: isMobile ? [-3.448, 1.24, -0.378] : [-3.448, 1.24, -0.378],
+        position: isMobile ? [-3.448, 3.74, -0.378] : [-3.448, 1.24, -0.378],
         fov: isMobile ? 90 : 60,
       }}
     >

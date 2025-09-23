@@ -20,9 +20,9 @@ const App = () => {
     const cameraPositions = isMobile
       ? {
           // Mobile positions
-          p1: { x: -5.5, y: 3.0, z: -2.5 },
-          p2: { x: 0, y: 0, z: 0 },
-          p3: { x: -1.5, y: 2.0, z: 2.0 },
+          p1: { x: -4, y: 4, z: 0 },
+          p2: { x: -5, y: 0, z: -2 },
+          p3: { x: 3, y: 0, z: -6 },
         }
       : {
           // Desktop positions
@@ -54,9 +54,9 @@ const App = () => {
     });
     modelTimeline.to(modelRef.current, {
       x: "-5vw",
-      y: "70vh",
+      y: "100vh",
       ease: "none",
-      duration: 1,
+      duration: 2,
     });
 
     // Camera animations
@@ -98,7 +98,7 @@ const App = () => {
   return (
     <div
       ref={parentRef}
-      className="max-w-screen overflow-hidden h-[1224px] relative bg-gradient-to-b from-[#A1D6E2] via-[#F1F1F2] to-[#A1D6E2]"
+      className="max-w-screen overflow-hidden h-[1260px] md:h-[1224px] relative bg-gradient-to-b from-[#A1D6E2] via-[#F1F1F2] to-[#A1D6E2]"
     >
       <div ref={modelRef} id="canvas-container" className="w-full h-full">
         <Model cameraRef={cameraRef} />
