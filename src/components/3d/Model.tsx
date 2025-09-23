@@ -4,6 +4,7 @@ import { Object3D } from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import useWindowSize from "../../hooks/useWindowSize";
 
 gsap.registerPlugin(ScrollTrigger);
 interface CameraControllerProps {
@@ -26,7 +27,7 @@ function CameraController({ cameraRef }: CameraControllerProps) {
   return null;
 }
 
-function Scene() {
+function Scene({ isMobile }: any) {
   const gltf = useLoader(GLTFLoader, "/models/bicycle/scene.gltf");
   const wheelRef = useRef<Object3D>(null);
   const innerWheel1Ref = useRef<Object3D>(null);
@@ -80,7 +81,12 @@ function Scene() {
     }
   }, [gltf]);
 
-  return <primitive position={[0, 0.8, 0.5]} object={gltf.scene} />;
+  return (
+    <primitive
+      position={isMobile ? [1, 1.1, 0.5] : [0, 0.8, 0.5]}
+      object={gltf.scene}
+    />
+  );
 }
 
 interface ModelProps {
@@ -88,16 +94,21 @@ interface ModelProps {
 }
 
 const Model = ({ cameraRef }: ModelProps) => {
+  const [width] = useWindowSize();
+  const isMobile = width < 768;
   return (
     <Canvas
       className="w-100vw h-100vh pb-16"
-      camera={{ position: [-3.448, 1.24, -0.378], fov: 60 }}
+      camera={{
+        position: isMobile ? [-3.448, 1.24, -0.378] : [-3.448, 1.24, -0.378],
+        fov: isMobile ? 90 : 60,
+      }}
     >
       <ambientLight intensity={1.8} />
       <directionalLight position={[0, 0, 5]} />
       <CameraController cameraRef={cameraRef} />
       <Suspense fallback={<>loading...</>}>
-        <Scene />
+        <Scene isMobile={isMobile} />
       </Suspense>
     </Canvas>
   );

@@ -3,6 +3,7 @@ import Model from "./components/3d/Model";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import HomeLayout from "./components/HomeLayout";
+import useWindowSize from "./hooks/useWindowSize";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,9 +13,23 @@ const App = () => {
   const cameraRef = useRef<{ position: { x: number; y: number; z: number } }>({
     position: { x: -3.448, y: 1.24, z: -0.378 },
   });
-
+  const [width] = useWindowSize();
+  const isMobile = width < 768;
   useEffect(() => {
     if (!modelRef.current || !parentRef.current) return;
+    const cameraPositions = isMobile
+      ? {
+          // Mobile positions
+          p1: { x: -5.5, y: 3.0, z: -2.5 },
+          p2: { x: 0, y: 0, z: 0 },
+          p3: { x: -1.5, y: 2.0, z: 2.0 },
+        }
+      : {
+          // Desktop positions
+          p1: { x: -2.0, y: 2.5, z: 1.5 },
+          p2: { x: 2.5, y: 1.8, z: -2.0 },
+          p3: { x: 0.9, y: 5.0, z: 2.5 },
+        };
 
     const modelTimeline = gsap.timeline({
       scrollTrigger: {
@@ -26,7 +41,7 @@ const App = () => {
     });
 
     modelTimeline.to(modelRef.current, {
-      x: "-25vw",
+      x: "5vw",
       y: "35vh",
       ease: "none",
       duration: 1,
@@ -49,9 +64,7 @@ const App = () => {
     modelTimeline.to(
       cameraRef.current.position,
       {
-        x: -2.0,
-        y: 2.5,
-        z: 1.5,
+        ...cameraPositions.p1,
         ease: "none",
         duration: 1,
       },
@@ -61,9 +74,7 @@ const App = () => {
     modelTimeline.to(
       cameraRef.current.position,
       {
-        x: 2.5,
-        y: 1.8,
-        z: -2.0,
+        ...cameraPositions.p2,
         ease: "none",
         duration: 1,
       },
@@ -73,9 +84,7 @@ const App = () => {
     modelTimeline.to(
       cameraRef.current.position,
       {
-        x: 0.9,
-        y: 5.0,
-        z: 2.5,
+        ...cameraPositions.p3,
         ease: "none",
         duration: 1,
       },
